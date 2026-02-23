@@ -3,14 +3,13 @@
   "pages": [
     {
       "src": "AboutUs.md",
-      "title": "About Us",
       "headings": {
         "about-us": "About Us",
         "project-team": "Project team",
-        "john-doe": "John Doe",
-        "jane-doe": "Jane Doe",
-        "johnny-doe": "Johnny Doe",
-        "jean-doe": "Jean Doe",
+        "ryan-goh": "Ryan Goh",
+        "eric-law": "Eric Law",
+        "yeo-jian-ming": "Yeo Jian Ming",
+        "tan-jian-ron": "Tan Jian Ron",
         "james-doe": "James Doe"
       },
       "headingKeywords": {}
