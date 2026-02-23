@@ -11,15 +11,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Tan Jian Ron
+### Ryan Goh
 
-<img src="images/jianrontan.png" width="200px">
+<img src="images/ryangoh206.png" width="200px">
 
-[[github](https://github.com/jianrontan)]
+[[github](https://github.com/ryangoh206)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Testing Lead
-* Responsibilities: model component
+* Role: Team Lead
+* Responsibilities: Project coordination, Parser component
 
 ### Eric Law
 
@@ -40,15 +40,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Code Quality Assurance
 * Responsibilities: Storage
 
-### Jean Doe
+### Tan Jian Ron
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jianrontan.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](https://github.com/jianrontan)]
 [[portfolio](team/johndoe.md)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Testing Lead
+* Responsibilities: model component
 
 ### James Doe
 
