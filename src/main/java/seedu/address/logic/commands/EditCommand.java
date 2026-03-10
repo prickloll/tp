@@ -23,6 +23,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
@@ -100,12 +101,13 @@ public class EditCommand extends Command {
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
+        DateOfBirth updatedDob = editPersonDescriptor.getDateOfBirth().orElse(personToEdit.getDateOfBirth());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedGender, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedGender, updatedDob, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
     @Override
@@ -139,6 +141,7 @@ public class EditCommand extends Command {
     public static class EditPersonDescriptor {
         private Name name;
         private Gender gender;
+        private DateOfBirth dob;
         private Phone phone;
         private Email email;
         private Address address;
@@ -180,6 +183,14 @@ public class EditCommand extends Command {
 
         public Optional<Gender> getGender() {
             return Optional.ofNullable(gender);
+        }
+
+        public void setDob(DateOfBirth dob) {
+            this.dob = dob;
+        }
+
+        public Optional<DateOfBirth> getDateOfBirth() {
+            return Optional.ofNullable(dob);
         }
 
         public void setPhone(Phone phone) {
@@ -236,6 +247,8 @@ public class EditCommand extends Command {
 
             EditPersonDescriptor otherEditPersonDescriptor = (EditPersonDescriptor) other;
             return Objects.equals(name, otherEditPersonDescriptor.name)
+                    && Objects.equals(gender, otherEditPersonDescriptor.gender)
+                    && Objects.equals(dob, otherEditPersonDescriptor.dob)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(email, otherEditPersonDescriptor.email)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
@@ -246,6 +259,8 @@ public class EditCommand extends Command {
         public String toString() {
             return new ToStringBuilder(this)
                     .add("name", name)
+                    .add("gender", gender)
+                    .add("dob", dob)
                     .add("phone", phone)
                     .add("email", email)
                     .add("address", address)
