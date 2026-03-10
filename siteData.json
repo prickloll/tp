@@ -3,14 +3,14 @@
   "pages": [
     {
       "src": "AboutUs.md",
+      "title": "About Us",
       "headings": {
         "about-us": "About Us",
         "project-team": "Project team",
         "ryan-goh": "Ryan Goh",
         "eric-law": "Eric Law",
         "yeo-jian-ming": "Yeo Jian Ming",
-        "tan-jian-ron": "Tan Jian Ron",
-        "james-doe": "James Doe"
+        "tan-jian-ron": "Tan Jian Ron"
       },
       "headingKeywords": {}
     },
@@ -130,7 +130,7 @@
       "src": "index.md",
       "title": "",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "powerroster": "PowerRoster"
       },
       "headingKeywords": {}
     },
