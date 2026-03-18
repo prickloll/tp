@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTE_APPEND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -70,7 +71,15 @@ public class AddressBookParserTest {
         NoteCommand command = (NoteCommand) parser
                 .parseCommand(NoteCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_NOTE + "New note.");
-        assertEquals(new NoteCommand(INDEX_FIRST_PERSON, new Note("New note.")), command);
+        assertEquals(new NoteCommand(INDEX_FIRST_PERSON, new Note("New note."), false), command);
+    }
+
+    @Test
+    public void parseCommand_noteAppend() throws Exception {
+        NoteCommand command = (NoteCommand) parser
+                .parseCommand(NoteCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_NOTE_APPEND + "Append text.");
+        assertEquals(new NoteCommand(INDEX_FIRST_PERSON, new Note("Append text."), true), command);
     }
 
     @Test
