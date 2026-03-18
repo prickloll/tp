@@ -84,7 +84,7 @@ public class TypicalPersons {
             .withPhone("9482427")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo")
-            .withLocation("Anytime Fitness Taman Jurong")
+            .withLocation("Anytime Fitness Bouna Vista")
             .build();
     public static final Person GEORGE = new PersonBuilder()
             .withName("George Best")
