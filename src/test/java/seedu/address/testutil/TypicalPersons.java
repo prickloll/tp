@@ -14,6 +14,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PLAN_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PLAN_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -38,6 +40,7 @@ public class TypicalPersons {
             .withPhone("94351253")
             .withLocation("Jurong West ActiveSG Gym")
             .withNote("Likes morning workouts")
+            .withPlan("PUSH")
             .withTags("friends")
             .build();
     public static final Person BENSON = new PersonBuilder()
@@ -49,6 +52,7 @@ public class TypicalPersons {
             .withPhone("98765432")
             .withLocation("Clementi ActiveSG Gym")
             .withNote("Focuses on strength training")
+            .withPlan("PULL")
             .withTags("friends")
             .build();
     public static final Person CARL = new PersonBuilder()
@@ -60,6 +64,7 @@ public class TypicalPersons {
             .withPhone("95352563")
             .withLocation("Anytime Fitness Tampines East")
             .withNote("Enjoys cardio workouts")
+            .withPlan("CARDIO")
             .build();
     public static final Person DANIEL = new PersonBuilder()
             .withName("Daniel Meier")
@@ -70,6 +75,7 @@ public class TypicalPersons {
             .withAddress("10th street")
             .withLocation("Anytime Fitness Marine Parade")
             .withNote("Enjoys cardio and yoga")
+            .withPlan("LEGS")
             .withTags("friends")
             .build();
     public static final Person ELLE = new PersonBuilder()
@@ -81,6 +87,7 @@ public class TypicalPersons {
             .withAddress("michegan ave")
             .withLocation("Anytime Fitness Buona Vista")
             .withNote("Loves HIIT")
+            .withPlan("FULL_BODY")
             .build();
     public static final Person FIONA = new PersonBuilder()
             .withName("Fiona Kunz")
@@ -91,6 +98,7 @@ public class TypicalPersons {
             .withAddress("little tokyo")
             .withLocation("Anytime Fitness Buona Vista")
             .withNote("Enjoys group fitness classes")
+            .withPlan("CORE")
             .build();
     public static final Person GEORGE = new PersonBuilder()
             .withName("George Best")
@@ -101,6 +109,7 @@ public class TypicalPersons {
             .withAddress("4th street")
             .withLocation("Anytime Fitness Lower Peirce")
             .withNote("Focuses on cardio and HIIT workouts")
+            .withPlan("CONDITIONING")
             .build();
 
     // Manually added
@@ -113,6 +122,7 @@ public class TypicalPersons {
             .withAddress("little india")
             .withLocation("Heartbeat @ Bedok ActiveSG Gym")
             .withNote("Interested in martial arts")
+            .withPlan("CARDIO")
             .build();
     public static final Person IDA = new PersonBuilder()
             .withName("Ida Mueller")
@@ -123,6 +133,7 @@ public class TypicalPersons {
             .withAddress("chicago ave")
             .withLocation("Jurong Lake Gardens ActiveSG Gym")
             .withNote("Enjoys cardio")
+            .withPlan("CONDITIONING")
             .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
@@ -134,6 +145,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_AMY)
             .withAddress(VALID_ADDRESS_AMY)
             .withLocation(VALID_LOCATION_AMY)
+            .withPlan(VALID_PLAN_AMY)
             .withTags(VALID_TAG_FRIEND)
             .build();
     public static final Person BOB = new PersonBuilder()
@@ -144,6 +156,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB)
             .withAddress(VALID_ADDRESS_BOB)
             .withLocation(VALID_LOCATION_BOB)
+            .withPlan(VALID_PLAN_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

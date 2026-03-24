@@ -33,6 +33,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Plan;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -114,10 +115,11 @@ public class EditCommand extends Command {
         Location updatedLocation =
                 editPersonDescriptor.getLocation().orElse(personToEdit.getLocation());
         Note oldNote = personToEdit.getNote(); // Note is not editable through EditCommand
+        Plan oldPlan = personToEdit.getPlan(); // Plan is not editable through EditCommand
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedGender, updatedDob, updatedPhone, updatedEmail,
-                updatedAddress, updatedLocation, oldNote, updatedTags);
+                updatedAddress, updatedLocation, oldNote, oldPlan, updatedTags);
     }
 
     @Override

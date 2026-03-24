@@ -51,6 +51,8 @@ public class Messages {
                 .append(person.getLocation())
                 .append("; Note: ")
                 .append(person.getNote())
+                .append("; Plan: ")
+                .append(person.getPlan())
                 .append("; Tags: ");
         person.getTags().forEach(builder::append);
         return builder.toString();

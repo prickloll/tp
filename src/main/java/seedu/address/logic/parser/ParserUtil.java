@@ -16,6 +16,7 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Location;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Plan;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -168,5 +169,18 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+
+    /**
+     * Parses one {@code wp/} value into a {@code Plan}.
+     */
+    public static Plan parsePlanCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String normalizedCategory = category.trim().replaceAll("\\s+", " ");
+        if (!Plan.isValidPlan(normalizedCategory)) {
+            throw new ParseException(Plan.MESSAGE_CONSTRAINTS);
+        }
+        return new Plan(normalizedCategory);
     }
 }

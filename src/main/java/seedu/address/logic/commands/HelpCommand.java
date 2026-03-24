@@ -27,7 +27,8 @@ public class HelpCommand extends Command {
         if (targetCommand.isEmpty()) {
             return new CommandResult(getAllCommandsUsage(), true, false);
         } else {
-            return new CommandResult(getCommandUsage(targetCommand), false, false);
+            return new CommandResult(getCommandUsage(targetCommand),
+                    false, false);
         }
     }
 
@@ -36,6 +37,7 @@ public class HelpCommand extends Command {
                 + DeleteCommand.MESSAGE_USAGE + "\n\n"
                 + EditCommand.MESSAGE_USAGE + "\n\n"
                 + NoteCommand.MESSAGE_USAGE + "\n\n"
+                + PlanCommand.MESSAGE_USAGE + "\n\n"
                 + FindCommand.MESSAGE_USAGE + "\n\n"
                 + FilterCommand.MESSAGE_USAGE + "\n\n"
                 + ListCommand.MESSAGE_USAGE + "\n\n"
@@ -62,6 +64,8 @@ public class HelpCommand extends Command {
             return ExitCommand.MESSAGE_USAGE;
         case NoteCommand.COMMAND_WORD:
             return NoteCommand.MESSAGE_USAGE;
+        case PlanCommand.COMMAND_WORD:
+            return PlanCommand.MESSAGE_USAGE;
         case FilterCommand.COMMAND_WORD:
             return FilterCommand.MESSAGE_USAGE;
         case COMMAND_WORD:
