@@ -24,11 +24,11 @@ public class WorkoutLogBook {
      * Copies the logs from an existing WorkoutLogBook.
      */
     public WorkoutLogBook(WorkoutLogBook toBeCopied) {
-        this.logs = toBeCopied.logs;
+        this.logs = new ArrayList<>(toBeCopied.logs);
     }
 
     public List<WorkoutLog> getLogList() {
-        return logs;
+        return new ArrayList<>(logs);
     }
 
     /**
