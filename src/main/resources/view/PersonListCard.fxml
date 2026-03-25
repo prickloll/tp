@@ -40,8 +40,5 @@
       <Label fx:id="note" styleClass="cell_small_label" text="\$note" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
     </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
   </GridPane>
 </HBox>
