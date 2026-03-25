@@ -17,6 +17,7 @@ import seedu.address.model.person.Location;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.workout.WorkoutTime;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -168,5 +169,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code WorkoutTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static WorkoutTime parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!WorkoutTime.isValidTime(trimmedTime)) {
+            throw new ParseException(WorkoutTime.MESSAGE_CONSTRAINTS);
+        }
+        return new WorkoutTime(trimmedTime);
     }
 }
