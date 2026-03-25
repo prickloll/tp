@@ -26,12 +26,12 @@ public class JsonWorkoutLogBookStorage implements WorkoutLogBookStorage {
     @Override
     public Path getWorkoutLogBookFilePath() {
         return filePath;
-    };
+    }
 
     @Override
     public Optional<WorkoutLogBook> readWorkoutLogBook() throws DataLoadingException {
         return readWorkoutLogBook(filePath);
-    };
+    }
 
     @Override
     public Optional<WorkoutLogBook> readWorkoutLogBook(Path filePath) throws DataLoadingException {
@@ -48,18 +48,20 @@ public class JsonWorkoutLogBookStorage implements WorkoutLogBookStorage {
         } catch (IllegalValueException ive) {
             throw new DataLoadingException(ive);
         }
-    };
+    }
 
+    @Override
     public void saveWorkoutLogBook(WorkoutLogBook workoutLogBook) throws IOException {
         saveWorkoutLogBook(workoutLogBook, filePath);
-    };
+    }
 
+    @Override
     public void saveWorkoutLogBook(WorkoutLogBook workoutLogBook, Path filePath) throws IOException {
         requireNonNull(workoutLogBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableWorkoutLogBook(workoutLogBook), filePath);
-    };
+    }
 
 }
