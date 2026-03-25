@@ -27,6 +27,7 @@ public class Person {
     private final Address address;
     private final Location location;
     private final Note note;
+    private final Rate rate;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -40,8 +41,9 @@ public class Person {
             Address address,
             Location location,
             Note note,
+            Rate rate,
             Set<Tag> tags) {
-        requireAllNonNull(name, gender, phone, email, address, location, note, tags);
+        requireAllNonNull(name, gender, phone, email, address, location, note, rate, tags);
         this.name = name;
         this.gender = gender;
         this.dob = dob;
@@ -50,6 +52,7 @@ public class Person {
         this.address = address;
         this.location = location;
         this.note = note;
+        this.rate = rate;
         this.tags.addAll(tags);
     }
 
@@ -86,6 +89,13 @@ public class Person {
      */
     public Note getNote() {
         return note;
+    }
+
+    /**
+     * Returns the rate of the person.
+     */
+    public Rate getRate() {
+        return rate;
     }
 
     /**
@@ -133,13 +143,14 @@ public class Person {
                 && address.equals(otherPerson.address)
                 && location.equals(otherPerson.location)
                 && note.equals(otherPerson.note)
+                && rate.equals(otherPerson.rate)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, gender, dob, phone, email, address, location, note, tags);
+        return Objects.hash(name, gender, dob, phone, email, address, location, note, rate, tags);
     }
 
     @Override
@@ -153,6 +164,7 @@ public class Person {
                 .add("address", address)
                 .add("location", location)
                 .add("note", note)
+                .add("rate", rate)
                 .add("tags", tags)
                 .toString();
     }
