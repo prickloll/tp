@@ -12,6 +12,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Note;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Rate;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -28,6 +29,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_LOCATION = "ActiveSG @ Fernvale Square";
     public static final String DEFAULT_NOTE = "";
+    public static final String DEFAULT_RATE = "80.00";
 
     private Name name;
     private Gender gender;
@@ -37,6 +39,7 @@ public class PersonBuilder {
     private Address address;
     private Location location;
     private Note note;
+    private Rate rate;
     private Set<Tag> tags;
 
     /**
@@ -51,6 +54,7 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         location = new Location(DEFAULT_LOCATION);
         note = new Note(DEFAULT_NOTE);
+        rate = new Rate(DEFAULT_RATE);
         tags = new HashSet<>();
     }
 
@@ -66,6 +70,7 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         location = personToCopy.getLocation();
         note = personToCopy.getNote();
+        rate = personToCopy.getRate();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -142,8 +147,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Rate} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withRate(String rate) {
+        this.rate = new Rate(rate);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, gender, dob, phone, email, address, location, note, tags);
+        return new Person(name, gender, dob, phone, email, address, location, note, rate, tags);
     }
 
 }
