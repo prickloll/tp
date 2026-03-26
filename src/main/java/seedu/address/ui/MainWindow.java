@@ -2,9 +2,11 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private PersonDetailPanel personDetailPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -45,6 +48,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private SplitPane mainHorizontalSplitPane;
+
+    @FXML
+    private SplitPane verticalSplitPane;
+
+    @FXML
+    private StackPane personDetailPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -113,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        personDetailPanel = new PersonDetailPanel();
+        personDetailPanelPlaceholder.getChildren().add(personDetailPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -121,6 +136,13 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // Programmatically enforce divider positions after layout to
+        // work around JavaFX resetting dividerPositions on first layout pass.
+        Platform.runLater(() -> {
+            mainHorizontalSplitPane.setDividerPositions(0.35);
+            verticalSplitPane.setDividerPositions(0.7);
+        });
     }
 
     /**
@@ -168,6 +190,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Clears the detail panel if the currently viewed person no longer exists in the address book.
+     */
+    private void clearDetailViewIfViewedPersonDeleted() {
+        if (personDetailPanel.getCurrentPerson() == null) {
+            return;
+        }
+
+        boolean stillExists = logic.getAddressBook().getPersonList().stream()
+                .anyMatch(p -> p.isSamePerson(personDetailPanel.getCurrentPerson()));
+        if (!stillExists) {
+            personDetailPanel.clearPerson();
+        }
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -180,14 +217,17 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser(),
                     IS_NOT_COMMAND_BOOLEAN);
-
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
-
             if (commandResult.isExit()) {
                 handleExit();
             }
+            if (commandResult.isShowPersonView()) {
+                personDetailPanel.displayPerson(commandResult.getPersonToView());
+            }
+
+            clearDetailViewIfViewedPersonDeleted();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
