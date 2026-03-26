@@ -226,9 +226,6 @@ public class PersonBuilder {
     }
 
     /**
-     * Builds and returns a {@code Person} instance with the configured fields.
-     */
-    /**
      * Sets the {@code Plan} of the {@code Person} that we are building.
      */
     public PersonBuilder withPlan(String plan) {
@@ -236,6 +233,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Builds and returns a {@code Person} instance with the configured fields.
+     */
     public Person build() {
         return new Person(id, name, gender, dob, phone, email, address, location,
                 note, plan, rate, status, height, weight, bodyFatPercentage, tags);

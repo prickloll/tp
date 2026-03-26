@@ -8,13 +8,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidPlan(String)}
  */
 public class Plan {
-    /**
-     * Returns true if this plan is unassigned.
-     */
-    public boolean isUnassigned() {
-        return value == PlanCategoryEnum.UNASSIGNED;
-    }
-
     public static final String MESSAGE_CONSTRAINTS =
             "Plan should be exactly one category: PUSH, PULL, LEGS, CORE, CARDIO, MOBILITY, FULL_BODY, "
                     + "or CONDITIONING.";
@@ -34,6 +27,13 @@ public class Plan {
         } else {
             value = PlanCategoryEnum.fromString(normalizedPlan);
         }
+    }
+
+    /**
+     * Returns true if this plan is unassigned.
+     */
+    public boolean isUnassigned() {
+        return value == PlanCategoryEnum.UNASSIGNED;
     }
 
     /**
