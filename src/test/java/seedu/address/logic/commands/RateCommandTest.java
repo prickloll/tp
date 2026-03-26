@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalWorkoutLogs.getTypicalWorkoutLogBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class RateCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), getTypicalWorkoutLogBook());
 
     @Test
     public void execute_setRateUnfilteredList_success() {
@@ -41,7 +42,7 @@ public class RateCommandTest {
                 String.format(RateCommand.MESSAGE_SET_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), getTypicalWorkoutLogBook());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(rateCommand, model, expectedMessage, expectedModel);
@@ -61,7 +62,7 @@ public class RateCommandTest {
                 String.format(RateCommand.MESSAGE_CLEAR_SUCCESS, Messages.format(editedPerson));
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+                new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), getTypicalWorkoutLogBook());
         expectedModel.setPerson(personWithRate, editedPerson);
 
         assertCommandSuccess(rateCommand, model, expectedMessage, expectedModel);

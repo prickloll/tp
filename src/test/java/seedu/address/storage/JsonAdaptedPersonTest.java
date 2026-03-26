@@ -66,6 +66,7 @@ public class JsonAdaptedPersonTest {
                 VALID_ADDRESS,
                 VALID_LOCATION,
                 VALID_NOTE,
+                VALID_RATE,
                 VALID_TAGS);
         String expectedMessage = ClientId.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
@@ -82,6 +83,7 @@ public class JsonAdaptedPersonTest {
                 VALID_ADDRESS,
                 VALID_LOCATION,
                 VALID_NOTE,
+                VALID_RATE,
                 VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ClientId.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
@@ -378,6 +380,7 @@ public class JsonAdaptedPersonTest {
     @Test
     public void toModelType_nullRate_defaultsToEmptyRate() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(
+                VALID_ID,
                 VALID_NAME,
                 VALID_GENDER,
                 VALID_DOB,
