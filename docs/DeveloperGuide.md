@@ -121,7 +121,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="600" />
+<puml src="diagrams/ModelClassDiagram.puml" />
 
 
 The `Model` component,
@@ -136,7 +136,7 @@ The `Model` component,
 
 **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="500" />
+<puml src="diagrams/BetterModelClassDiagram.puml" />
 
 </box>
 
@@ -162,7 +162,6 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-<<<<<<< HEAD
 ### View command and client detail panel
 
 The `view` feature is implemented as a collaboration between `Logic` and `UI`:
@@ -178,7 +177,7 @@ The `view` feature is implemented as a collaboration between `Logic` and `UI`:
 * Detailed state shown after a successful `view INDEX` command.
 
 To keep the panel consistent with model updates, `MainWindow` also clears the detail panel after successful commands when the currently viewed person no longer exists (e.g., after a `delete` or `clear`).
-=======
+
 ### Sort feature
 
 #### Implementation
@@ -288,7 +287,6 @@ The three value classes enforce numeric range and format constraints (up to 1 de
 
 **Storage and Migration:**
 * `JsonAdaptedPerson` persists `height`, `weight`, and `bodyFatPercentage` in the data file and validates these values when converting to model objects.
->>>>>>> master
 
 ### \[Proposed\] Undo/redo feature
 
