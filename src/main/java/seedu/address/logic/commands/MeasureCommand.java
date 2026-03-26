@@ -27,7 +27,8 @@ public class MeasureCommand extends Command {
     public static final String COMMAND_WORD = "measure";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates body measurements for the specified person by index number used in the last person listing.\n"
+            + ": Updates body measurements for the person identified by the index number used in the displayed"
+            + " person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_HEIGHT + "HEIGHT_CM] "
             + "[" + PREFIX_WEIGHT + "WEIGHT_KG] "
