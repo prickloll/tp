@@ -47,7 +47,7 @@ public class Person {
             Note note,
             Plan plan,
             Set<Tag> tags) {
-        requireAllNonNull(name, gender, phone, email, address, location, note, plan, tags);
+        requireAllNonNull(id, name, gender, phone, email, address, location, note, plan, tags);
         this.id = id;
         this.name = name;
         this.gender = gender;
