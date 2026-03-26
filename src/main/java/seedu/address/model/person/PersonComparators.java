@@ -14,8 +14,6 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class PersonComparators {
 
-    private static final Logger logger = LogsCenter.getLogger(PersonComparators.class);
-
     /** Attribute name for sorting by person name. */
     public static final String ATTRIBUTE_NAME = "name";
 
@@ -45,6 +43,8 @@ public class PersonComparators {
 
     /** Default sort order when not specified. */
     public static final String DEFAULT_ORDER = ORDER_ASC;
+
+    private static final Logger logger = LogsCenter.getLogger(PersonComparators.class);
 
     /**
      * Container class for an attribute comparator with its display name.

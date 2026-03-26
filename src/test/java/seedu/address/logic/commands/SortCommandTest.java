@@ -78,8 +78,8 @@ public class SortCommandTest {
     @Test
     public void execute_sortByNameDescending_success() {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "name", "desc");
-        Comparator<Person> nameComparator = Comparator.comparing(
-                (Person p) -> p.getName().fullName.toLowerCase()).reversed();
+        Comparator<Person> nameComparator = Comparator.comparing((Person p) ->
+                p.getName().fullName.toLowerCase()).reversed();
         SortCommand command = new SortCommand("name", "desc");
         expectedModel.updatePersonListComparator(nameComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -113,8 +113,8 @@ public class SortCommandTest {
     @Test
     public void execute_sortByDateOfBirthDescending_success() {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, "date of birth", "desc");
-        Comparator<Person> dobComparator = Comparator.comparing(
-                (Person p) -> p.getDateOfBirth().value).reversed();
+        Comparator<Person> dobComparator = Comparator.comparing((Person p) ->
+                p.getDateOfBirth().value).reversed();
         SortCommand command = new SortCommand("date of birth", "desc");
         expectedModel.updatePersonListComparator(dobComparator);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

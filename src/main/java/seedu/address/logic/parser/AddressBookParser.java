@@ -23,8 +23,8 @@ import seedu.address.logic.commands.LogCommand;
 import seedu.address.logic.commands.MeasureCommand;
 import seedu.address.logic.commands.NoteCommand;
 import seedu.address.logic.commands.RateCommand;
-import seedu.address.logic.commands.StatusCommand;
 import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.StatusCommand;
 import seedu.address.logic.commands.ViewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 

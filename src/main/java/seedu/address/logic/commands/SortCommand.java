@@ -16,8 +16,6 @@ import seedu.address.model.person.PersonComparators;
  */
 public class SortCommand extends Command {
 
-    private static final Logger logger = LogsCenter.getLogger(SortCommand.class);
-
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -29,6 +27,8 @@ public class SortCommand extends Command {
             + "Example: " + COMMAND_WORD + " n/ o/asc";
 
     public static final String MESSAGE_SUCCESS = "Sorted persons by %s in %s order";
+
+    private static final Logger logger = LogsCenter.getLogger(SortCommand.class);
 
     private final String attribute;
     private final String order;
