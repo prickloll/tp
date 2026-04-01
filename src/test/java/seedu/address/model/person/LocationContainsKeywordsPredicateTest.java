@@ -71,6 +71,10 @@ public class LocationContainsKeywordsPredicateTest {
         // Keywords match phone, email and address, but does not match location as intended
         predicate = new LocationContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main Street"));
         assertFalse(predicate.test(new PersonBuilder().withLocation("Anytime Fitness Jurong").build()));
+
+        // Internal placeholder location should never be matched by filter
+        predicate = new LocationContainsKeywordsPredicate(Collections.singletonList("No Location Specified"));
+        assertFalse(predicate.test(new PersonBuilder().withLocation(Location.UNSPECIFIED_LOCATION).build()));
     }
 
     @Test

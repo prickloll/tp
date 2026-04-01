@@ -16,7 +16,7 @@ public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter all persons whose location contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter all clients whose location contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: "
             + PREFIX_LOCATION + "LOCATION_PHRASE [" + PREFIX_LOCATION + "LOCATION_PHRASE]...\n"

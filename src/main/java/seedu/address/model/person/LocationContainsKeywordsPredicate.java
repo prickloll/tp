@@ -17,10 +17,15 @@ public class LocationContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        String location = person.getLocation().value;
+        if (location.equalsIgnoreCase(Location.UNSPECIFIED_LOCATION)) {
+            return false;
+        }
+
         // String match does not use StringUtil.containsWordIgnoreCase to allow for partial location matches
         return keywords.stream()
                 .map(String::toLowerCase)
-                .anyMatch(keyword -> person.getLocation().value.toLowerCase().contains(keyword));
+                .anyMatch(keyword -> location.toLowerCase().contains(keyword));
     }
 
     @Override

@@ -257,6 +257,7 @@ Format: `filter l/LOCATION_PHRASE [l/MORE_LOCATION_PHRASES]...`
 * Multiple `l/` prefixes for multiple location phrases is supported and clients matching at least one phrase will be returned (i.e. `OR` search). e.g. `filter l/Anytime Fitness l/Jurong` will use `Anytime Fitness` and `Jurong` as separate phrases to match.
 * Extra spaces within a phrase are normalised. e.g. `filter l/Anytime   Fitness` will be treated as `filter l/Anytime Fitness`.
 * Blank prefixed values are considered invalid. e.g. `filter l/` is invalid or `filter l/ l/` is invalid.
+* Clients without a specified location are not matched by `filter`.
 
 Examples:
 * `filter l/Clementi` returns all clients whose locations contain the phrase `Clementi` such as `Clementi ActiveSG Gym` and `Anytime Fitness Clementi`.
