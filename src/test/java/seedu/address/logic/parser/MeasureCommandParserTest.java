@@ -125,7 +125,9 @@ public class MeasureCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
-
+    /**
+     * Parses input with a trailing-dot weight value and verifies normalization.
+     */
     @Test
     public void parse_validTrailingDotPrefix_success() {
         Index targetIndex = INDEX_FIRST_PERSON;

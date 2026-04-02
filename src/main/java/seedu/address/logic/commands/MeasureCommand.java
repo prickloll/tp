@@ -105,12 +105,12 @@ public class MeasureCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        String message = formatOutcomeMessages(personToEdit, editedPerson.getName());
+        String message = formatOutcomeMessages(personToEdit, editedPerson.getName().toString());
         return new CommandResult(message);
     }
 
     /** Returns field-specific outcomes in deterministic order (h/, w/, bf/). */
-    private String formatOutcomeMessages(Person personBeforeEdit, Object clientName) {
+    private String formatOutcomeMessages(Person personBeforeEdit, String clientName) {
         StringJoiner joiner = new StringJoiner("\n");
         if (height != null) {
             joiner.add(formatHeightOutcome(clientName, personBeforeEdit.getHeight().value));
@@ -124,7 +124,7 @@ public class MeasureCommand extends Command {
         return joiner.toString();
     }
 
-    private String formatHeightOutcome(Object clientName, String oldValue) {
+    private String formatHeightOutcome(String clientName, String oldValue) {
         if (height.value.isEmpty()) {
             String message = oldValue.isEmpty() ? MESSAGE_HEIGHT_ALREADY_CLEARED : MESSAGE_HEIGHT_CLEAR_SUCCESS;
             return String.format(message, clientName);
@@ -132,7 +132,7 @@ public class MeasureCommand extends Command {
         return String.format(MESSAGE_HEIGHT_SET_SUCCESS, clientName, height.value);
     }
 
-    private String formatWeightOutcome(Object clientName, String oldValue) {
+    private String formatWeightOutcome(String clientName, String oldValue) {
         if (weight.value.isEmpty()) {
             String message = oldValue.isEmpty() ? MESSAGE_WEIGHT_ALREADY_CLEARED : MESSAGE_WEIGHT_CLEAR_SUCCESS;
             return String.format(message, clientName);
@@ -140,7 +140,7 @@ public class MeasureCommand extends Command {
         return String.format(MESSAGE_WEIGHT_SET_SUCCESS, clientName, weight.value);
     }
 
-    private String formatBodyFatOutcome(Object clientName, String oldValue) {
+    private String formatBodyFatOutcome(String clientName, String oldValue) {
         if (bodyFatPercentage.value.isEmpty()) {
             String message = oldValue.isEmpty() ? MESSAGE_BODY_FAT_ALREADY_CLEARED : MESSAGE_BODY_FAT_CLEAR_SUCCESS;
             return String.format(message, clientName);
