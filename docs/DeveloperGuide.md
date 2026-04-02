@@ -591,7 +591,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS:**
 1. Trainer requests to filter clients by gym location and provides one or more location phrases with the `l/` prefix.
 2. PowerRoster retrieves and displays all clients whose gym location matches at least one provided location phrase.
-   If the command is `filter l/` (single blank phrase), clients with no specified location are displayed.
 3. PowerRoster confirms the number of clients found for the specified gym location to the Trainer.
 
    Use case ends.
@@ -601,7 +600,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. PowerRoster informs the Trainer that the command format is invalid and shows the expected command format.  
       
       Use case ends.
-* 1b. Trainer provides a blank location value with a single prefix (`filter l/`).
+* 1b. Trainer provides a blank location value for filtering.
     * 1b1. PowerRoster displays clients with no specified location.
 
       Use case resumes from step 3.
@@ -609,7 +608,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. PowerRoster informs the Trainer that no clients were found for the specified gym location.
 
       Use case ends.
-* 1c. Trainer provides multiple `l/` prefixes where at least one prefixed value is blank (e.g., `filter l/Clementi l/`).
+* 1c. Trainer provides multiple location values for filtering, with at least one blank value.
     * 1c1. PowerRoster informs the Trainer that the command format is invalid.
 
       Use case ends.
