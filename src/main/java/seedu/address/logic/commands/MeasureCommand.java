@@ -39,10 +39,18 @@ public class MeasureCommand extends Command {
             + PREFIX_WEIGHT + "72.0 "
             + PREFIX_BODY_FAT + "14.8";
 
-    public static final String MESSAGE_SET_SUCCESS = "Measurements added/updated to %2$s for client: %1$s";
-    public static final String MESSAGE_CLEAR_SUCCESS = "Measurements cleared for client: %1$s";
-    public static final String MESSAGE_MEASUREMENTS_ALREADY_CLEARED =
-            "Specified measurements are already cleared for client: %1$s";
+    public static final String MESSAGE_HEIGHT_SET_SUCCESS = "Height added/updated to %2$s for client: %1$s";
+    public static final String MESSAGE_HEIGHT_CLEAR_SUCCESS = "Height cleared for client: %1$s";
+    public static final String MESSAGE_HEIGHT_ALREADY_CLEARED = "Height is already cleared for client: %1$s";
+
+    public static final String MESSAGE_WEIGHT_SET_SUCCESS = "Weight added/updated to %2$s for client: %1$s";
+    public static final String MESSAGE_WEIGHT_CLEAR_SUCCESS = "Weight cleared for client: %1$s";
+    public static final String MESSAGE_WEIGHT_ALREADY_CLEARED = "Weight is already cleared for client: %1$s";
+
+    public static final String MESSAGE_BODY_FAT_SET_SUCCESS = "Body Fat added/updated to %2$s for client: %1$s";
+    public static final String MESSAGE_BODY_FAT_CLEAR_SUCCESS = "Body Fat cleared for client: %1$s";
+    public static final String MESSAGE_BODY_FAT_ALREADY_CLEARED =
+            "Body Fat is already cleared for client: %1$s";
 
     private final Index index;
     private final Height height;
@@ -97,41 +105,47 @@ public class MeasureCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
-        boolean allSpecifiedMeasurementsClear = (height == null || height.value.isEmpty())
-                && (weight == null || weight.value.isEmpty())
-                && (bodyFatPercentage == null || bodyFatPercentage.value.isEmpty());
-        boolean allSpecifiedMeasurementsAlreadyCleared = (height == null || personToEdit.getHeight().value.isEmpty())
-                && (weight == null || personToEdit.getWeight().value.isEmpty())
-                && (bodyFatPercentage == null || personToEdit.getBodyFatPercentage().value.isEmpty());
-
-        String message;
-        if (allSpecifiedMeasurementsClear && allSpecifiedMeasurementsAlreadyCleared) {
-            message = MESSAGE_MEASUREMENTS_ALREADY_CLEARED;
-        } else if (allSpecifiedMeasurementsClear) {
-            message = MESSAGE_CLEAR_SUCCESS;
-        } else {
-            message = MESSAGE_SET_SUCCESS;
-        }
-
-        String measurementSummary = formatSpecifiedMeasurements();
-        return new CommandResult(String.format(message, editedPerson.getName(), measurementSummary));
+        String message = formatOutcomeMessages(personToEdit, editedPerson.getName());
+        return new CommandResult(message);
     }
 
-    /**
-     * Returns a deterministic summary of specified measurement prefixes in command input order.
-     */
-    private String formatSpecifiedMeasurements() {
-        StringJoiner joiner = new StringJoiner(", ");
+    /** Returns field-specific outcomes in deterministic order (h/, w/, bf/). */
+    private String formatOutcomeMessages(Person personBeforeEdit, Object clientName) {
+        StringJoiner joiner = new StringJoiner("\n");
         if (height != null) {
-            joiner.add(PREFIX_HEIGHT + height.value);
+            joiner.add(formatHeightOutcome(clientName, personBeforeEdit.getHeight().value));
         }
         if (weight != null) {
-            joiner.add(PREFIX_WEIGHT + weight.value);
+            joiner.add(formatWeightOutcome(clientName, personBeforeEdit.getWeight().value));
         }
         if (bodyFatPercentage != null) {
-            joiner.add(PREFIX_BODY_FAT + bodyFatPercentage.value);
+            joiner.add(formatBodyFatOutcome(clientName, personBeforeEdit.getBodyFatPercentage().value));
         }
         return joiner.toString();
+    }
+
+    private String formatHeightOutcome(Object clientName, String oldValue) {
+        if (height.value.isEmpty()) {
+            String message = oldValue.isEmpty() ? MESSAGE_HEIGHT_ALREADY_CLEARED : MESSAGE_HEIGHT_CLEAR_SUCCESS;
+            return String.format(message, clientName);
+        }
+        return String.format(MESSAGE_HEIGHT_SET_SUCCESS, clientName, height.value + " cm");
+    }
+
+    private String formatWeightOutcome(Object clientName, String oldValue) {
+        if (weight.value.isEmpty()) {
+            String message = oldValue.isEmpty() ? MESSAGE_WEIGHT_ALREADY_CLEARED : MESSAGE_WEIGHT_CLEAR_SUCCESS;
+            return String.format(message, clientName);
+        }
+        return String.format(MESSAGE_WEIGHT_SET_SUCCESS, clientName, weight.value + " kg");
+    }
+
+    private String formatBodyFatOutcome(Object clientName, String oldValue) {
+        if (bodyFatPercentage.value.isEmpty()) {
+            String message = oldValue.isEmpty() ? MESSAGE_BODY_FAT_ALREADY_CLEARED : MESSAGE_BODY_FAT_CLEAR_SUCCESS;
+            return String.format(message, clientName);
+        }
+        return String.format(MESSAGE_BODY_FAT_SET_SUCCESS, clientName, bodyFatPercentage.value + "%");
     }
 
     @Override
