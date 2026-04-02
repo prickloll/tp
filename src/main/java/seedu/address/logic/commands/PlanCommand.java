@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Plan;
 
 /**
- * Assigns or updates a workout plan for a person identified by index.
+ * Assigns or updates a workout plan for a client identified by index.
  */
 public class PlanCommand extends Command {
 
@@ -37,11 +37,11 @@ public class PlanCommand extends Command {
     private final Plan plan;
 
     /**
-     * Creates a PlanCommand to assign/update the specified {@code plan} of the person at the
+     * Creates a PlanCommand to assign/update the specified {@code plan} of the client at the
      * specified {@code index}.
      *
-     * @param index of the person in the last person list to edit the workout plan
-     * @param plan of the person to be updated to
+     * @param index of the client in the last displayed list to edit the workout plan
+     * @param plan workout plan to update the client to
      */
     public PlanCommand(Index index, Plan plan) {
         requireNonNull(index);
