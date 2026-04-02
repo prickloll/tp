@@ -32,6 +32,7 @@ public class MeasureCommand extends Command {
             + "[" + PREFIX_HEIGHT + "HEIGHT_CM] "
             + "[" + PREFIX_WEIGHT + "WEIGHT_KG] "
             + "[" + PREFIX_BODY_FAT + "BODY_FAT_PERCENTAGE]\n"
+            + "At least one of h/, w/, or bf/ must be provided (e.g., 'measure 1' is invalid).\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_HEIGHT + "175.5 "
             + PREFIX_WEIGHT + "72.0 "

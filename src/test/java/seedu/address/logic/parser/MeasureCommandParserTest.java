@@ -94,6 +94,16 @@ public class MeasureCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
+    @Test
+    public void parse_validTrailingDotPrefix_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_WEIGHT + "72.";
+        MeasureCommand expectedCommand = new MeasureCommand(INDEX_FIRST_PERSON,
+                null, new Weight("72.0"), null);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
     /**
      * Parses input with an empty measurement value and verifies clear semantics.
      */
