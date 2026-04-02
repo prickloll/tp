@@ -71,6 +71,16 @@ public class MeasureCommandParserTest {
     }
 
     /**
+     * Parses input with multiple invalid measurement values and verifies aggregated failure.
+     */
+    @Test
+    public void parse_multipleInvalidMeasurements_failure() {
+        String userInput = INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_HEIGHT + "a " + PREFIX_WEIGHT + "a";
+        String expectedMessage = Height.MESSAGE_CONSTRAINTS + "\n" + Weight.MESSAGE_CONSTRAINTS;
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    /**
      * Parses input with duplicate measurement prefixes and verifies failure.
      */
     @Test
