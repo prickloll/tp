@@ -71,7 +71,10 @@ public class SortCommandParser implements Parser<SortCommand> {
                 PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_LOCATION, PREFIX_ORDER,
                 PREFIX_STATUS, PREFIX_PLAN, PREFIX_RATE);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORDER);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ORDER,
+                PREFIX_NAME, PREFIX_GENDER, PREFIX_DOB, PREFIX_PHONE,
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_LOCATION,
+                PREFIX_STATUS, PREFIX_PLAN, PREFIX_RATE);
 
         // Find which attribute to sort by
         String attribute = null;

@@ -114,6 +114,12 @@ public class SortCommandParserTest {
     }
 
     @Test
+    public void parse_duplicateAttributePrefix_throwsParseException() {
+        assertParseFailure(parser, " " + PREFIX_PHONE + " " + PREFIX_PHONE,
+                MESSAGE_DUPLICATE_FIELDS + PREFIX_PHONE);
+    }
+
+    @Test
     public void parse_duplicateOrderPrefix_throwsParseException() {
         assertParseFailure(parser, " " + PREFIX_NAME + " " + PREFIX_ORDER + "asc " + PREFIX_ORDER + "desc",
                 MESSAGE_DUPLICATE_FIELDS + PREFIX_ORDER);
