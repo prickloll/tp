@@ -208,52 +208,67 @@ public class EditCommandTest {
         String clientName = afterEdit.getName().toString();
         StringBuilder builder = new StringBuilder();
 
-        if (descriptor.getName().isPresent()) {
-            appendLine(builder, beforeEdit.getName().equals(afterEdit.getName())
-                    ? String.format(EditCommand.MESSAGE_NAME_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_NAME_SET_SUCCESS, clientName, afterEdit.getName()));
-        }
-        if (descriptor.getGender().isPresent()) {
-            appendLine(builder, beforeEdit.getGender().equals(afterEdit.getGender())
-                    ? String.format(EditCommand.MESSAGE_GENDER_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_GENDER_SET_SUCCESS, clientName, afterEdit.getGender()));
-        }
-        if (descriptor.getDateOfBirth().isPresent()) {
-            appendLine(builder, beforeEdit.getDateOfBirth().equals(afterEdit.getDateOfBirth())
-                    ? String.format(EditCommand.MESSAGE_DOB_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_DOB_SET_SUCCESS, clientName, afterEdit.getDateOfBirth()));
-        }
-        if (descriptor.getPhone().isPresent()) {
-            appendLine(builder, beforeEdit.getPhone().equals(afterEdit.getPhone())
-                    ? String.format(EditCommand.MESSAGE_PHONE_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_PHONE_SET_SUCCESS, clientName, afterEdit.getPhone()));
-        }
-        if (descriptor.getEmail().isPresent()) {
-            appendLine(builder, beforeEdit.getEmail().equals(afterEdit.getEmail())
-                    ? String.format(EditCommand.MESSAGE_EMAIL_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_EMAIL_SET_SUCCESS, clientName, afterEdit.getEmail()));
-        }
-        if (descriptor.getAddress().isPresent()) {
-            appendLine(builder, beforeEdit.getAddress().equals(afterEdit.getAddress())
-                    ? String.format(EditCommand.MESSAGE_ADDRESS_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_ADDRESS_SET_SUCCESS, clientName, afterEdit.getAddress()));
-        }
-        if (descriptor.getLocation().isPresent()) {
-            String displayLocation = afterEdit.getLocation().value.isEmpty() ? "N/A" : afterEdit.getLocation().value;
-            appendLine(builder, beforeEdit.getLocation().equals(afterEdit.getLocation())
-                    ? String.format(EditCommand.MESSAGE_LOCATION_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_LOCATION_SET_SUCCESS, clientName, displayLocation));
-        }
-        if (descriptor.getTags().isPresent()) {
-            appendLine(builder, beforeEdit.getTags().equals(afterEdit.getTags())
-                    ? String.format(EditCommand.MESSAGE_TAGS_UNCHANGED, clientName)
-                    : String.format(EditCommand.MESSAGE_TAGS_SET_SUCCESS, clientName, formatTags(afterEdit.getTags())));
-        }
+        appendOutcomeIfEdited(builder,
+                descriptor.getName().isPresent(),
+                beforeEdit.getName().equals(afterEdit.getName()),
+                String.format(EditCommand.MESSAGE_NAME_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_NAME_SET_SUCCESS, clientName, afterEdit.getName()));
+
+        appendOutcomeIfEdited(builder,
+                descriptor.getGender().isPresent(),
+                beforeEdit.getGender().equals(afterEdit.getGender()),
+                String.format(EditCommand.MESSAGE_GENDER_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_GENDER_SET_SUCCESS, clientName, afterEdit.getGender()));
+
+        appendOutcomeIfEdited(builder,
+                descriptor.getDateOfBirth().isPresent(),
+                beforeEdit.getDateOfBirth().equals(afterEdit.getDateOfBirth()),
+                String.format(EditCommand.MESSAGE_DOB_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_DOB_SET_SUCCESS, clientName, afterEdit.getDateOfBirth()));
+
+        appendOutcomeIfEdited(builder,
+                descriptor.getPhone().isPresent(),
+                beforeEdit.getPhone().equals(afterEdit.getPhone()),
+                String.format(EditCommand.MESSAGE_PHONE_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_PHONE_SET_SUCCESS, clientName, afterEdit.getPhone()));
+
+        appendOutcomeIfEdited(builder,
+                descriptor.getEmail().isPresent(),
+                beforeEdit.getEmail().equals(afterEdit.getEmail()),
+                String.format(EditCommand.MESSAGE_EMAIL_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_EMAIL_SET_SUCCESS, clientName, afterEdit.getEmail()));
+
+        appendOutcomeIfEdited(builder,
+                descriptor.getAddress().isPresent(),
+                beforeEdit.getAddress().equals(afterEdit.getAddress()),
+                String.format(EditCommand.MESSAGE_ADDRESS_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_ADDRESS_SET_SUCCESS, clientName, afterEdit.getAddress()));
+
+        String displayLocation = afterEdit.getLocation().value.isEmpty() ? "N/A" : afterEdit.getLocation().value;
+        appendOutcomeIfEdited(builder,
+                descriptor.getLocation().isPresent(),
+                beforeEdit.getLocation().equals(afterEdit.getLocation()),
+                String.format(EditCommand.MESSAGE_LOCATION_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_LOCATION_SET_SUCCESS, clientName, displayLocation));
+
+        appendOutcomeIfEdited(builder,
+                descriptor.getTags().isPresent(),
+                beforeEdit.getTags().equals(afterEdit.getTags()),
+                String.format(EditCommand.MESSAGE_TAGS_UNCHANGED, clientName),
+                String.format(EditCommand.MESSAGE_TAGS_SET_SUCCESS, clientName, formatTags(afterEdit.getTags())));
 
         if (builder.length() == 0) {
             return String.format(EditCommand.MESSAGE_NO_CHANGES, clientName);
         }
         return builder.toString();
+    }
+
+    private void appendOutcomeIfEdited(StringBuilder builder, boolean isEdited, boolean isUnchanged,
+                                       String unchangedMessage, String changedMessage) {
+        if (!isEdited) {
+            return;
+        }
+        appendLine(builder, isUnchanged ? unchangedMessage : changedMessage);
     }
 
     private void appendLine(StringBuilder builder, String messageLine) {
