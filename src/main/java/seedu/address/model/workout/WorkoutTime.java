@@ -13,7 +13,7 @@ import java.time.format.ResolverStyle;
  */
 public class WorkoutTime {
 
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
             "Workout Time must be a valid date in the format: dd/MM/yyyy HH:mm\n"
             + "Workout Time cannot be in the future or more than 50 years in the past.";
 

@@ -47,7 +47,7 @@ public class DateOfBirthTest {
         // Non-existent Dates
         assertFalse(DateOfBirth.isValidDob("29/02/2002")); // not a leap year
         assertFalse(DateOfBirth.isValidDob("31/04/2002"));
-        
+
         // Future Dates (Invalid)
         assertFalse(DateOfBirth.isValidDob(LocalDate
                 .now()
