@@ -71,7 +71,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
         if (argMultimap.getValue(PREFIX_DOB).isPresent()) {
-            editPersonDescriptor.setDateOfBirth(ParserUtil.parseDateOfBirth(argMultimap.getValue(PREFIX_DOB).get()));
+            editPersonDescriptor.setDateOfBirth(ParserUtil
+                    .parseDateOfBirth(argMultimap.getValue(PREFIX_DOB).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));

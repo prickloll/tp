@@ -15,6 +15,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -26,6 +28,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.WorkoutLogBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -51,7 +54,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = expectedEditOutcome(model.getFilteredPersonList().get(0), editedPerson, descriptor);
 
         Model expectedModel = new ModelManager(
                 new AddressBook(model.getAddressBook()),
@@ -77,7 +80,7 @@ public class EditCommandTest {
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = expectedEditOutcome(lastPerson, editedPerson, descriptor);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new WorkoutLogBook());
@@ -91,7 +94,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = expectedEditOutcome(editedPerson, editedPerson, new EditPersonDescriptor());
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new WorkoutLogBook());
@@ -108,7 +111,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+        String expectedMessage = expectedEditOutcome(personInFilteredList, editedPerson,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(), new WorkoutLogBook());
@@ -198,6 +202,75 @@ public class EditCommandTest {
         String expected = EditCommand.class.getCanonicalName() + "{index=" + index + ", editPersonDescriptor="
                 + editPersonDescriptor + "}";
         assertEquals(expected, editCommand.toString());
+    }
+
+    private String expectedEditOutcome(Person beforeEdit, Person afterEdit, EditPersonDescriptor descriptor) {
+        String clientName = afterEdit.getName().toString();
+        StringBuilder builder = new StringBuilder();
+
+        if (descriptor.getName().isPresent()) {
+            appendLine(builder, beforeEdit.getName().equals(afterEdit.getName())
+                    ? String.format(EditCommand.MESSAGE_NAME_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_NAME_SET_SUCCESS, clientName, afterEdit.getName()));
+        }
+        if (descriptor.getGender().isPresent()) {
+            appendLine(builder, beforeEdit.getGender().equals(afterEdit.getGender())
+                    ? String.format(EditCommand.MESSAGE_GENDER_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_GENDER_SET_SUCCESS, clientName, afterEdit.getGender()));
+        }
+        if (descriptor.getDateOfBirth().isPresent()) {
+            appendLine(builder, beforeEdit.getDateOfBirth().equals(afterEdit.getDateOfBirth())
+                    ? String.format(EditCommand.MESSAGE_DOB_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_DOB_SET_SUCCESS, clientName, afterEdit.getDateOfBirth()));
+        }
+        if (descriptor.getPhone().isPresent()) {
+            appendLine(builder, beforeEdit.getPhone().equals(afterEdit.getPhone())
+                    ? String.format(EditCommand.MESSAGE_PHONE_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_PHONE_SET_SUCCESS, clientName, afterEdit.getPhone()));
+        }
+        if (descriptor.getEmail().isPresent()) {
+            appendLine(builder, beforeEdit.getEmail().equals(afterEdit.getEmail())
+                    ? String.format(EditCommand.MESSAGE_EMAIL_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_EMAIL_SET_SUCCESS, clientName, afterEdit.getEmail()));
+        }
+        if (descriptor.getAddress().isPresent()) {
+            appendLine(builder, beforeEdit.getAddress().equals(afterEdit.getAddress())
+                    ? String.format(EditCommand.MESSAGE_ADDRESS_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_ADDRESS_SET_SUCCESS, clientName, afterEdit.getAddress()));
+        }
+        if (descriptor.getLocation().isPresent()) {
+            String displayLocation = afterEdit.getLocation().value.isEmpty() ? "N/A" : afterEdit.getLocation().value;
+            appendLine(builder, beforeEdit.getLocation().equals(afterEdit.getLocation())
+                    ? String.format(EditCommand.MESSAGE_LOCATION_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_LOCATION_SET_SUCCESS, clientName, displayLocation));
+        }
+        if (descriptor.getTags().isPresent()) {
+            appendLine(builder, beforeEdit.getTags().equals(afterEdit.getTags())
+                    ? String.format(EditCommand.MESSAGE_TAGS_UNCHANGED, clientName)
+                    : String.format(EditCommand.MESSAGE_TAGS_SET_SUCCESS, clientName, formatTags(afterEdit.getTags())));
+        }
+
+        if (builder.length() == 0) {
+            return String.format(EditCommand.MESSAGE_NO_CHANGES, clientName);
+        }
+        return builder.toString();
+    }
+
+    private void appendLine(StringBuilder builder, String messageLine) {
+        if (builder.length() > 0) {
+            builder.append("\n");
+        }
+        builder.append(messageLine);
+    }
+
+    private String formatTags(Set<Tag> tags) {
+        if (tags.isEmpty()) {
+            return "[]";
+        }
+        return tags.stream()
+                .map(tag -> tag.tagName)
+                .sorted()
+                .collect(java.util.stream.Collectors.joining(", ", "[", "]"));
     }
 
 }
