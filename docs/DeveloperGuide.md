@@ -203,6 +203,8 @@ The `ModelManager` wraps the `FilteredList` with a `SortedList`, allowing sortin
 
 Once set, the comparator remains active until replaced by another `sort` command. Commands such as `list` reset the filter predicate to show all clients, but do not reset the active comparator.
 
+Two attributes have special handling for absent values: clients with no location set always sort to the end of the list in ascending order (and to the top in descending), and clients with no rate set are treated as having the lowest rate and sort first in ascending order (and last in descending).
+
 #### Design considerations:
 
 **Aspect: Where to store comparator logic**
@@ -491,7 +493,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to view the help guide.
-2. PowerRoster displays the list of available commands with their syntax and descriptions.
+2. PowerRoster opens the help window and displays the list of available commands with their syntax and descriptions.
 
    Use case ends.
 
@@ -627,6 +629,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 * 3a. The given status is invalid.
     * 3a1. PowerRoster shows an error message.
+
+      Use case ends.
+* 3b. Trainer provides more than one status prefix.
+    * 3b1. PowerRoster informs the Trainer that only one status prefix is allowed.
 
       Use case ends.
 * 4a. The client already has the specified status.
