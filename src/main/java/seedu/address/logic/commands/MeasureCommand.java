@@ -10,6 +10,7 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -190,5 +191,18 @@ public class MeasureCommand extends Command {
     @Override
     public int hashCode() {
         return Objects.hash(index, height, weight, bodyFatPercentage);
+    }
+
+    /**
+     * Returns a debug-friendly string representation of this command.
+     */
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .add("height", height)
+                .add("weight", weight)
+                .add("bodyFatPercentage", bodyFatPercentage)
+                .toString();
     }
 }

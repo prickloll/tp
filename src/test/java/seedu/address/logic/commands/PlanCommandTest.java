@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PLAN_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PLAN_BOB;
@@ -196,5 +197,17 @@ public class PlanCommandTest {
         // different plan -> returns false
         assertFalse(standardCommand
                 .equals(new PlanCommand(INDEX_FIRST_PERSON, new Plan(VALID_PLAN_BOB))));
+
+        // equal objects must have the same hash code
+        assertTrue(standardCommand.hashCode() == commandWithSameValues.hashCode());
+    }
+
+    /**
+     * Verifies constructor defensive checks for null index/plan.
+     */
+    @Test
+    public void constructor_nullArguments_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new PlanCommand(null, new Plan(VALID_PLAN_AMY)));
+        assertThrows(NullPointerException.class, () -> new PlanCommand(INDEX_FIRST_PERSON, null));
     }
 }

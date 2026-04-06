@@ -3,9 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.logging.Logger;
-
-import seedu.address.commons.core.LogsCenter;
+import java.util.Objects;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -35,8 +33,6 @@ public class PlanCommand extends Command {
     public static final String MESSAGE_CLEAR_SUCCESS = "Workout plan unassigned for client: %1$s";
     public static final String MESSAGE_ALREADY_CLEARED = "Workout plan is already unassigned for client: %1$s";
 
-    private static final Logger logger = LogsCenter.getLogger(PlanCommand.class);
-
     private final Index index;
     private final Plan plan;
 
@@ -57,12 +53,10 @@ public class PlanCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        logger.info("Executing plan command for index: " + index.getOneBased());
 
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            logger.warning("Plan command failed due to invalid index: " + index.getOneBased());
+        if (isTargetIndexOutOfBounds(lastShownList)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -73,8 +67,11 @@ public class PlanCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         String message = buildResultMessage(personToEdit, editedPerson);
-        logger.fine("Plan command completed for client " + editedPerson.getName() + ": " + message);
         return new CommandResult(message);
+    }
+
+    private boolean isTargetIndexOutOfBounds(List<Person> lastShownList) {
+        return index.getZeroBased() >= lastShownList.size();
     }
 
     private Person createEditedPerson(Person personToEdit) {
@@ -118,6 +115,11 @@ public class PlanCommand extends Command {
 
         PlanCommand otherCommand = (PlanCommand) other;
         return index.equals(otherCommand.index) && plan.equals(otherCommand.plan);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(index, plan);
     }
 
     /**
