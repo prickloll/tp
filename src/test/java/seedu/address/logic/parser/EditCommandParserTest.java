@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -219,5 +220,10 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_nullArgs_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> parser.parse(null));
     }
 }

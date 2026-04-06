@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
@@ -192,6 +193,15 @@ public class EditCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+
+        // equal objects must have the same hash code
+        assertTrue(standardCommand.hashCode() == commandWithSameValues.hashCode());
+    }
+
+    @Test
+    public void constructor_nullArguments_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new EditCommand(null, DESC_AMY));
+        assertThrows(NullPointerException.class, () -> new EditCommand(INDEX_FIRST_PERSON, null));
     }
 
     @Test
