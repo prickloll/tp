@@ -140,7 +140,7 @@ public class ModelManagerTest {
     public void resetLogs_logsInLogBook_emptyLogBook() {
         modelManager.addLog(ALICE_LOG_1);
         modelManager.addLog(BENSON_LOG_1);
-        
+
         modelManager.resetLogs();
 
         assertFalse(modelManager.hasLog(ALICE_LOG_1));
