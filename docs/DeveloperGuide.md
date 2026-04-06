@@ -536,7 +536,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 **Use case: UC08 - View a client's full profile**
-**Preconditions:** Trainer has launched PowerRoster. At least one client is shown in the current list.
+**Preconditions:** Trainer has launched PowerRoster. At least one client exists in the *roster*.
 **Guarantees:** Full details of the selected client are displayed.
 
 **MSS**
@@ -752,7 +752,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 **Use case: UC16 - Sort clients**
-**Preconditions:** Trainer has launched PowerRoster. At least one client exists in the displayed list.
+**Preconditions:** Trainer has launched PowerRoster. At least one client exists in the *roster*.
 **Guarantees:** The client list is sorted according to the specified sorting criteria.
 
 **MSS**
@@ -769,6 +769,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. PowerRoster informs the Trainer that the request format is invalid and shows the expected format.
 
       Use case ends.
+* 2b. The sorting request contains an unsupported sorting criterion.
+    * 2b1. PowerRoster informs the Trainer that the sorting criterion is invalid and no sorting is performed.
+
+      Use case ends.
+
+**Use case: UC17 - Clear all clients and workout logs**
+**Preconditions:** Trainer has launched PowerRoster.
+**Guarantees:** All clients and workout logs are removed from storage and in-memory state.
+
+**MSS**
+
+1. Trainer requests to clear all application data.
+2. PowerRoster removes all clients and workout logs.
+3. PowerRoster confirms that all data has been cleared.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
@@ -776,10 +792,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. Should be able to hold up to 1000 clients without noticeable sluggishness for core operations (e.g., list/find/filter/sort), even though the typical trainer stores 10-25 clients.
 3. All functions provided in PowerRoster should be able to be carried out via the Command Line Interface (CLI) only.  
 4. All client data should be stored in a single file and automatically saved after every successful command that alters the data stored to allow for easy backups and transfer to other devices if needed.
-6. A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-7. Should provide a helpful error message every time an invalid command is entered.
-8. Should ensure basic data validation for all user-entered fields to prevent logically invalid values (e.g., negative session rate).
-9. The application is not required to carry out any Internet communication for any of its functionality.
+5. A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+6. Should provide a helpful error message every time an invalid command is entered.
+7. Should ensure basic data validation for all user-entered fields to prevent logically invalid values (e.g., negative session rate).
+8. The application is not required to carry out any Internet communication for any of its functionality.
 
 ### Glossary
 
@@ -811,17 +827,17 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+   1. Download the jar file and copy it into an empty folder.
 
-   1. Double-click the jar file.<br>
-      Expected: Shows the GUI with a set of sample clients. The window size may not be optimum.
+   1. Double-click the jar file. Note that on some systems, double-clicking the jar file would not run it. In that case, `cd` into the folder you put the jar file in, and use the `java -jar PowerRoster.jar` command to run the application.<br>
+      Expected: The GUI appears with sample clients loaded. The initial window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+      Expected: The most recent window size and location are retained.
 
 1. Exiting from command line
 
@@ -830,34 +846,76 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `exit`<br>
       Expected: App shuts down gracefully.
 
-### Deleting a client
+### Help and command guidance
 
-1. Deleting a client while all clients are being shown
+1. Showing help for all commands
 
-   1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+   1. Test case: `help`<br>
+      Expected: Full help content is shown.
 
-   1. Test case: `delete 1`<br>
-      Expected: First client is deleted from the list. Details of the deleted client shown in the result message.
+1. Showing help for a specific command
 
-   1. Test case: `delete 0`<br>
-      Expected: No client is deleted. Error details shown in the result message.
+   1. Test case: `help add`<br>
+      Expected: Help content for the add command is shown.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+1. Invalid command help request
 
-### Viewing a client's full profile
+   1. Test case: `help unknowncommand`<br>
+      Expected: Unknown-command help message is shown.
 
-1. Viewing from the current list
+### Add, view, edit, and delete clients
 
-   1. Prerequisites: List all clients using the `list` command. Multiple clients in the list.
+1. Adding clients
+
+   1. Prerequisites: Start from a clean list using `clear` if needed.
+
+   1. Test case: `add n/Alex Tan g/M dob/01/01/1995 p/91234567 e/alex.tan@example.com a/123 Clementi Ave 3 l/Clementi ActiveSG t/beginner`<br>
+      Expected: Client is added successfully and shown in the list.
+
+   1. Test case: Re-run the same `add` command above<br>
+      Expected: Duplicate-client error is shown; no new client is added.
+
+1. Listing all clients
+
+   1. Prerequisites: At least one client exists.
+
+   1. Test case: `list`<br>
+      Expected: All clients are displayed.
+
+1. Viewing a client's full profile
+
+   1. Prerequisites: Run `list`. Multiple clients are shown.
 
    1. Test case: `view 1`<br>
-      Expected: The 1st client's full profile is shown in the detail panel. Success message is shown in the result display.
+      Expected: The 1st client's full profile is shown in the detail panel, with a success message in the result display.
 
    1. Test case: `view 0`<br>
-      Expected: No profile is shown/changed. Error details shown in the status message.
+      Expected: No profile is shown or updated. Error details are shown.
 
    1. Other incorrect view commands to try: `view`, `view x`, `view ...` (where index is larger than the list size)<br>
+      Expected: Similar to previous.
+
+1. Editing clients
+
+   1. Prerequisites: At least one client exists.
+
+   1. Test case: `edit 1 p/98765432 e/alex.updated@example.com`<br>
+      Expected: Selected fields are updated successfully.
+
+   1. Test case: `edit 1 dob/31/02/1995`<br>
+      Expected: Validation error is shown for invalid date.
+
+1. Deleting a client while all clients are shown
+
+   1. Prerequisites: Run `list`. Multiple clients are shown.
+
+   1. Test case: `delete 1`<br>
+      Expected: First client is deleted from the list. Details of the deleted client are shown in the result message.
+
+   1. Test case: `delete 0`<br>
+      Expected: No client is deleted. Error details are shown.
+
+   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
 1. Detail panel consistency after delete
@@ -865,39 +923,160 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: `view 1` has been executed successfully and the profile is visible.
 
    1. Test case: `delete 1`<br>
-      Expected: Deleted client is removed from the list and the detail panel resets to placeholder if the deleted client was the one being viewed.
+      Expected: Deleted client is removed from the list and the detail panel resets to placeholder if that deleted client was being viewed.
+
+### Find, filter, and sort clients
+
+1. Find
+
+   1. Prerequisites: At least two clients exist with different names.
+
+   1. Test case: `find alex`<br>
+      Expected: Only matching clients are shown.
+
+   1. Test case: `find ALEx`<br>
+      Expected: Same matching results as `find alex` (case-insensitive matching).
+
+1. Filter
+
+   1. Prerequisites: At least one client has a location and at least one client has no specified location.
+
+   1. Test case: `filter l/Clementi`<br>
+      Expected: Only clients with matching location phrases are shown.
+
+   1. Test case: `filter l/Clementi l/Jurong`<br>
+      Expected: Clients matching either location phrase are shown.
+
+   1. Test case: `filter l/`<br>
+      Expected: Only clients with no specified location are shown.
+
+   1. Test case: `filter l/Clementi l/`<br>
+      Expected: Validation error is shown because mixed non-empty and empty location phrases are not allowed in one command.
+
+1. Sort
+
+   1. Prerequisites: At least two clients exist.
+
+   1. Test case: `sort n/ o/desc`<br>
+      Expected: Displayed list is sorted by name in descending order.
+
+   1. Test case: `sort n/`<br>
+      Expected: Displayed list is sorted by name in ascending order (default order).
+
+   1. Test case: `sort x/`<br>
+      Expected: Invalid sorting-criterion error is shown.
+
+### Notes, plans, status, rate, and measurements
+
+1. Notes
+
+   1. Prerequisites: At least one client exists.
+
+   1. Test case: `note 1 n/Prefers evening sessions.`<br>
+      Expected: Existing note is replaced with the new note.
+
+   1. Test case: `note 1 a/Monitor knee stability.`<br>
+      Expected: New note text is appended to the existing note.
+
+   1. Test case: `note 1 n/Prefers morning sessions. a/Track hydration.`<br>
+      Expected: Validation error is shown because add and append note modes cannot be used together.
+
+1. Workout plan
+
+   1. Prerequisites: At least one client exists.
+
+   1. Test case: `plan 1 wp/FULL BODY`<br>
+      Expected: Programme is assigned successfully.
+
+   1. Test case: `plan 1 wp/`<br>
+      Expected: Programme is cleared successfully.
+
+   1. Test case: `plan 1 wp/UNKNOWN`<br>
+      Expected: Validation error is shown for unsupported plan category.
+
+1. Status
+
+   1. Prerequisites: At least one client exists.
+
+   1. Test case: `status 1 s/inactive`<br>
+      Expected: Status is updated to inactive.
+
+   1. Test case: `status 1 s/inactive`<br>
+      Expected: Message indicates no change because status is already inactive.
+
+1. Rate
+
+   1. Prerequisites: At least one client exists.
+
+   1. Test case: `rate 1 r/120.5`<br>
+      Expected: Rate is set successfully.
+
+   1. Test case: `rate 1 r/`<br>
+      Expected: Rate is cleared successfully.
+
+   1. Test case: `rate 1 r/120.555`<br>
+      Expected: Validation error is shown for invalid rate value format.
+
+1. Measurements
+
+   1. Prerequisites: At least one client exists.
+
+   1. Test case: `measure 1 h/175.0 w/70.5 bf/14.0`<br>
+      Expected: Measurement fields are updated successfully.
+
+   1. Test case: `measure 1 h/ w/ bf/`<br>
+      Expected: All specified fields are cleared successfully.
+
+   1. Test case: `measure 1 h/20.0`<br>
+      Expected: Validation error is shown for height out of acceptable range.
 
 ### Logging and retrieving workout sessions
 
 1. Logging a session with defaults
 
-   1. Prerequisites: Multiple clients in list; at least one client has a location.
+   1. Prerequisites: At least one client exists.
 
    1. Test case: `log 1`<br>
       Expected: A new log entry is created for client 1 using current time and the client's saved location (or `N/A` if none).
 
 1. Logging with explicit values
 
+   1. Prerequisites: At least one client exists.
+
    1. Test case: `log 1 time/26/03/2026 14:18 l/Sengkang ActiveSG Gym`<br>
       Expected: A new log entry is created using the provided time and location.
 
 1. Invalid log input
 
+   1. Prerequisites: At least one client exists.
+
    1. Test case: `log 0`<br>
-      Expected: Invalid index error shown; no log added.
+      Expected: Invalid-index error is shown; no log is added.
 
    1. Test case: `log 1 time/26/03/2070 14:18`<br>
-      Expected: Validation error shown for invalid future time.
+      Expected: Validation error is shown for invalid future time.
 
-1. Retrieving most recent session
+1. Retrieving the most recent session
 
-   1. Prerequisites: At least one `log` command has been executed successfully for client 1.
+   1. Prerequisites: At least two clients exist.
 
-   1. Test case: `last 1`<br>
+   1. Test case: Execute `log 1`, then execute `last 1`<br>
       Expected: Most recent session time and location for client 1 are shown.
 
    1. Test case: `last 0`<br>
-      Expected: Invalid index error shown.
+      Expected: Invalid-index error is shown.
+
+   1. Test case: `last 2` (for a client with no workout logs)<br>
+      Expected: Message indicates no previous session exists for that client.
+
+### Clearing all entries
+
+1. Clearing clients and workout logs
+
+   1. Prerequisites: At least one client exists and at least one workout log exists.
+
+   1. Test case: `clear`<br>
+      Expected: All clients and workout logs are removed.
 
 ### Saving data
 
