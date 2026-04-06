@@ -39,7 +39,7 @@ public class NoteCommand extends Command {
     public static final String MESSAGE_NOTE_ALREADY_CLEARED = "Note is already cleared for client: %1$s";
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Note: %2$s";
 
-    private static final Logger logger = LogsCenter.getLogger(ViewCommand.class);
+    private static final Logger logger = LogsCenter.getLogger(NoteCommand.class);
 
     private final Index index;
     private final Note note;
