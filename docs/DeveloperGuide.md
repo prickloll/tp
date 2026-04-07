@@ -102,14 +102,14 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 <puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
-The sequence diagram below shows an example of a profile field update command — `execute("status 1 s/inactive")`. Commands such as `note`, `rate`, `plan`, and `measure` follow the same flow.
-
-<puml src="diagrams/StatusSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `status 1 s/inactive` Command" />
-
 <box type="info" seamless>
 
 **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </box>
+
+The sequence diagram below shows an example of a profile field update command — `execute("status 1 s/inactive")`. Commands such as `note`, `rate`, `plan`, and `measure` follow the same flow.
+
+<puml src="diagrams/StatusSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `status 1 s/inactive` Command" />
 
 How the `Logic` component works:
 
