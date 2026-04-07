@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -101,5 +102,10 @@ public class RateCommand extends Command {
 
         RateCommand otherRateCommand = (RateCommand) other;
         return index.equals(otherRateCommand.index) && rate.equals(otherRateCommand.rate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(index, rate);
     }
 }
