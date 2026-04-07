@@ -2,8 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
 
 /**
@@ -60,5 +62,17 @@ public class HelpCommand extends Command {
 
         HelpCommand otherHelpCommand = (HelpCommand) other;
         return targetCommand.equals(otherHelpCommand.targetCommand);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(targetCommand);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetCommand", targetCommand)
+                .toString();
     }
 }

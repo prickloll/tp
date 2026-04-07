@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.person.PersonComparators.ORDER_DESC;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonComparators;
@@ -84,8 +86,15 @@ public class SortCommand extends Command {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(attribute, order);
+    }
+
+    @Override
     public String toString() {
-        return SortCommand.class.getCanonicalName()
-                + "{attribute=" + attribute + ", order=" + order + "}";
+        return new ToStringBuilder(this)
+                .add("attribute", attribute)
+                .add("order", order)
+                .toString();
     }
 }
