@@ -94,7 +94,7 @@ public class LogCommand extends Command {
     }
 
     private WorkoutLog createWorkoutLog(Person person) {
-        ClientId traineeId = new ClientId(person.getId().toString());
+        ClientId traineeId = person.getId();
         Location workoutLocation = resolveLocation(person);
         WorkoutLog newLog = new WorkoutLog(traineeId, time, workoutLocation);
         return newLog;
