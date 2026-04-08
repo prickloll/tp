@@ -10,7 +10,7 @@
 
 ![Ui](images/Uiv2.png)
 
-**PowerRoster is a desktop client management app for freelance fitness trainers.**
+**PowerRoster is a desktop client management app for Freelance Personal Fitness Trainers.**
 It helps you keep client profiles, contact details, training locations, and coaching notes in one place so you can spend less time on admin and more time coaching.
 
 PowerRoster combines a clean GUI with a fast command workflow: you can execute actions quickly through a CLI while still viewing structured client information at a glance.
@@ -22,8 +22,8 @@ PowerRoster combines a clean GUI with a fast command workflow: you can execute a
 * Keep coaching context organized with locations, tags, plans, and notes.
 * Stay efficient with an interface built for day-to-day operations.
 
-* New to PowerRoster? Start with the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start).
-* Working on the codebase? Read the [**Developer Guide**](DeveloperGuide.html).
+* Want to start tracking your clients with PowerRoster? Head to the [_Quick Start_ section of the **User Guide**](UserGuide.html#quick-start) to get started.
+* Interested to develop PowerRoster further? Check out the [**Developer Guide**](DeveloperGuide.html).
 
 
 **Acknowledgements**
