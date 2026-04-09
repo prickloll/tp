@@ -197,16 +197,14 @@ Format: `plan INDEX wp/PLAN_CATEGORY`
 * The `wp/` prefix is required.
 * `PLAN_CATEGORY` must be one of: `PUSH`, `PULL`, `LEGS`, `CORE`, `CARDIO`, `MOBILITY`, `FULL BODY`, `CONDITIONING` (case-insensitive).
 * For multi-word categories, spaces, hyphens, and underscores are all accepted as separators.
-* Entering `wp/` with no value unassigns the client's assigned workout programme.
-* Entering `wp/unassigned` (case-insensitive) also unassigns the client's assigned workout programme.
+* Entering `wp/` with no value or `wp/unassigned` (case-insensitive) unassigns the client's assigned workout programme.
 * Duplicate `wp/` prefixes are not allowed.
 * Workout programmes can only be changed using `plan` (not `edit`).
 
 Examples:
 * `plan 1 wp/PUSH` assigns the 1st client to the `PUSH` programme.
 * `plan 2 wp/full body` assigns the 2nd client to the `FULL BODY` programme.
-* `plan 3 wp/` unassigns the 3rd client's workout programme.
-* `plan 4 wp/unassigned` unassigns the 4th client's workout programme.
+* `plan 3 wp/` or `plan 3 wp/unassigned` unassigns the 3rd client's workout programme.
 
 ### Setting a client's session rate: `rate`
 
