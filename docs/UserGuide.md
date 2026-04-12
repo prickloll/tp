@@ -429,7 +429,7 @@ PowerRoster data are saved in the hard disk automatically after any command that
 
 ### Editing the data file
 
-PowerRoster data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+PowerRoster data are saved automatically as JSON files at `[JAR file location]/data/addressbook.json` and `[JAR file location]/data/workoutlogbook.json`. Advanced users are welcome to update data directly by editing these data files.
 
 <box type="warning" seamless>
 
