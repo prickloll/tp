@@ -725,7 +725,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: Run `list`. Multiple clients are shown.
 
    1. Test case: `delete 1`<br>
-      Expected: First client is deleted from the list. Details of the deleted client are shown in the result message.
+      Expected: First client is deleted from the list. Name of the deleted client is shown in the result message.
 
    1. Test case: `delete 0`<br>
       Expected: No client is deleted. Error details are shown.
