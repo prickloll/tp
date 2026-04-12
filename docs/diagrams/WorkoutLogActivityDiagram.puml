@@ -36,6 +36,7 @@ else (no)
 endif
 stop
 
+start
 :Trainer executes last INDEX;
 if (INDEX valid?) then (yes)
   if (Client has prior logs?) then (yes)
